@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-
+import "./App.css"
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
 
     const fetchMetrics = () => {
 
-      fetch("http://127.0.0.1:8000/metrics")
+      fetch("http://127.0.0.1:8000/latest-metrics")
 
         .then((response) => response.json())
 
@@ -33,32 +33,44 @@ function App() {
 
   return (
 
-    <div>
-
-      <h1>Sentinelle Dashboard</h1>
-
-      {
-        metrics.map((metric) => (
-
-          <div key={metric.id}>
-
-            <h3>{metric.hostname}</h3>
-
-            <p>CPU : {metric.cpu}%</p>
-
-            <p>RAM : {metric.ram}%</p>
-
-            <p>Connections : {metric.connections}</p>
-
-            <p>{metric.timestamp}</p>
-
-            <hr />
-
-          </div>
-
-        ))
-      }
-
+    <div className="container">
+  
+      <h1 className="title">
+        Sentinelle Dashboard
+      </h1>
+  
+      <div className="grid">
+  
+        {
+          metrics.map((metric) => (
+  
+            <div className="card" key={metric.id}>
+  
+              <h2>{metric.hostname}</h2>
+  
+              <p className="metric">
+                CPU : {metric.cpu}%
+              </p>
+  
+              <p className="metric">
+                RAM : {metric.ram}%
+              </p>
+  
+              <p className="metric">
+                Connections : {metric.connections}
+              </p>
+  
+              <p className="metric">
+                {metric.timestamp}
+              </p>
+  
+            </div>
+  
+          ))
+        }
+  
+      </div>
+  
     </div>
   )
 }
