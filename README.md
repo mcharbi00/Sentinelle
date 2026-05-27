@@ -29,3 +29,7 @@ Plateforme de supervision réseau et système développée avec FastAPI et Postg
 
 ```bash
 docker compose up -d
+### Lancer le Backend
+
+```bash
+uvicorn app.main:app
