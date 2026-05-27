@@ -1,17 +1,31 @@
 # Sentinelle
 
-Plateforme de supervision réseau distribuée avec collecte de métriques et monitoring temps réel.
+Plateforme de supervision réseau et système développée avec FastAPI et PostgreSQL.
 
 ## Stack
 
 - FastAPI
 - PostgreSQL
-- Docker
 - SQLAlchemy
-- React (à venir)
+- Docker
+- Pydantic
+
+---
+
+## Fonctionnalités actuelles
+
+- API REST
+- Validation des données
+- Stockage PostgreSQL
+- Architecture modulaire
+- Filtrage des métriques par hostname
+- Timestamps automatiques
+
+---
 
 ## Lancement
 
+### Démarrer PostgreSQL
+
 ```bash
 docker compose up -d
-uvicorn app.main:app --reload
