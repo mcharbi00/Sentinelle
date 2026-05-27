@@ -1,3 +1,14 @@
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+    CartesianGrid,
+    Legend
+  } from "recharts"
+
 function MachineHistory({
     selectedMachine,
     machineHistory,
@@ -8,7 +19,20 @@ function MachineHistory({
     if (!selectedMachine) {
       return null
     }
-  
+    
+    const chartData = machineHistory
+    .slice(-20)
+    .map((metric) => {
+  return {
+
+    time: new Date(metric.timestamp).toLocaleTimeString(),
+
+    cpu: metric.cpu,
+
+    ram: metric.ram
+
+  }
+})
   
     return (
   
@@ -33,7 +57,43 @@ function MachineHistory({
   
         </div>
   
-  
+        <div className="h-80 mb-8">
+
+  <ResponsiveContainer width="100%" height="100%">
+
+    <LineChart data={chartData}>
+
+    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+
+    <Legend />
+
+      <XAxis dataKey="time"  stroke="#94a3b8"  />
+
+      <YAxis stroke="#94a3b8"  />
+
+      <Tooltip />
+
+
+      <Line
+        type="monotone"
+        dataKey="cpu"
+        stroke="#22c55e"
+        strokeWidth={2}
+      />
+
+
+      <Line
+        type="monotone"
+        dataKey="ram"
+        stroke="#3b82f6"
+        strokeWidth={2}
+      />
+
+    </LineChart>
+
+  </ResponsiveContainer>
+
+</div>
         <div className="space-y-4">
   
           {

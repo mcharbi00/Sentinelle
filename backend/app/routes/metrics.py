@@ -63,6 +63,7 @@ def get_metrics_by_hostname(hostname: str):
     metrics = (
         db.query(MetricModel)
         .filter(MetricModel.hostname == hostname)
+        .order_by(MetricModel.timestamp.asc())
         .all()
     )
 

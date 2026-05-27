@@ -38,7 +38,36 @@ function App() {
     return () => clearInterval(interval)
 
   }, [])
+  useEffect(() => {
 
+    if (!selectedMachine) {
+      return
+    }
+  
+  
+    const fetchHistory = () => {
+  
+      fetch(`http://127.0.0.1:8000/metrics/${selectedMachine}`)
+  
+        .then((response) => response.json())
+  
+        .then((data) => {
+  
+          setMachineHistory(data)
+  
+        })
+    }
+  
+  
+    fetchHistory()
+  
+  
+    const interval = setInterval(fetchHistory, 5000)
+  
+  
+    return () => clearInterval(interval)
+  
+  }, [selectedMachine])
 
   const fetchMachineHistory = (hostname) => {
 
