@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float,DateTime
 from sqlalchemy.orm import declarative_base
-
+from datetime import datetime
 Base = declarative_base()
 
 
@@ -12,3 +12,4 @@ class MetricModel(Base):
     cpu = Column(Float)
     ram = Column(Float)
     connections = Column(Integer)
+    timestamp = Column(DateTime, default=datetime.utcnow)

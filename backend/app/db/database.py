@@ -5,4 +5,7 @@ DATABASE_URL = "postgresql://admin:admin@localhost:5432/sentinelle"
 
 engine = create_engine(DATABASE_URL)
 
-SessionLocal = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(autocommit=False,
+    autoflush=False,
+    bind=engine
+)
