@@ -3,6 +3,7 @@ from app.schemas.metric import Metric
 from app.models.metric import MetricModel
 from app.db.database import SessionLocal
 from sqlalchemy import func
+from datetime import datetime, timezone
 
 router = APIRouter()
 @router.get("/metrics")
@@ -133,7 +134,13 @@ def get_latest_metrics():
             "cpu": metric.cpu,
             "ram": metric.ram,
             "connections": metric.connections,
-            "timestamp": metric.timestamp
+            "timestamp": metric.timestamp,
+            "status": (
+            "online"
+            if (datetime.utcnow() - metric.timestamp).seconds < 15
+            else "offline"
+            )
+    
         }
 
         for metric in metrics

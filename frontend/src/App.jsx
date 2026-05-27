@@ -82,6 +82,24 @@ function App() {
       color: "bg-green-500"
     }
   }
+  const getMachineStatus = (status) => {
+
+    if (status === "offline") {
+  
+      return {
+        badge: "bg-red-500",
+        card: "opacity-60 border-red-500/40",
+        label: "OFFLINE"
+      }
+    }
+  
+  
+    return {
+      badge: "bg-green-500",
+      card: "border-slate-800",
+      label: "ONLINE"
+    }
+  }
   return (
 
     <div className="min-h-screen bg-slate-950 text-white p-8">
@@ -128,8 +146,8 @@ function App() {
   
             <div
               key={metric.id}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg"
-            >
+              className={`bg-slate-900 border rounded-2xl p-6 shadow-lg transition-all duration-300 ${getMachineStatus(metric.status).card}`}
+  >
   
               <div className="flex items-center justify-between mb-6">
   
