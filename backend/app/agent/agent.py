@@ -1,34 +1,42 @@
 import socket
+import time
+
 import psutil
 import requests
 
 
-hostname = socket.gethostname()
+while True:
 
-cpu = psutil.cpu_percent(interval=1)
+    hostname = socket.gethostname()
 
-ram = psutil.virtual_memory().percent
+    cpu = psutil.cpu_percent(interval=1)
 
+    ram = psutil.virtual_memory().percent
 
-try:
-    connections = len(psutil.net_connections())
+    try:
+        connections = len(psutil.net_connections())
 
-except psutil.AccessDenied:
-    connections = 0
+    except psutil.AccessDenied:
+        connections = 0
 
+    payload = {
+        "hostname": hostname,
+        "cpu": cpu,
+        "ram": ram,
+        "connections": connections
+    }
 
-payload = {
-    "hostname": hostname,
-    "cpu": cpu,
-    "ram": ram,
-    "connections": connections
-}
+    try:
 
+        response = requests.post(
+            "http://127.0.0.1:8000/metrics",
+            json=payload
+        )
 
-response = requests.post(
-    "http://127.0.0.1:8000/metrics",
-    json=payload
-)
+        print("metrics sent :", response.status_code)
 
+    except requests.ConnectionError:
 
-print(response.json())
+        print("backend unreachable")
+
+    time.sleep(5)

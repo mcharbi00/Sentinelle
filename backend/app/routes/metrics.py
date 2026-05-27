@@ -9,8 +9,12 @@ def get_metrics():
 
     db = SessionLocal()
 
-    metrics = db.query(MetricModel).all()
-
+    metrics = (
+    db.query(MetricModel)
+    .order_by(MetricModel.timestamp.desc())
+    .limit(20)
+    .all()
+)
     db.close()
 
     return [
