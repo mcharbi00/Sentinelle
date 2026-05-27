@@ -17,7 +17,7 @@ function App() {
 
     const fetchMetrics = () => {
 
-      fetch("http://127.0.0.1:8000/latest-metrics")
+      fetch(`${import.meta.env.VITE_API_URL}/latest-metrics`)
 
         .then((response) => response.json())
 
@@ -47,7 +47,7 @@ function App() {
   
     const fetchHistory = () => {
   
-      fetch(`http://127.0.0.1:8000/metrics/${selectedMachine}`)
+      fetch(`${import.meta.env.VITE_API_URL}/metrics/${selectedMachine}`)
   
         .then((response) => response.json())
   

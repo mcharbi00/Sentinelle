@@ -1,0 +1,47 @@
+services:
+
+  db:
+    image: postgres:15
+
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: sentinelle
+
+
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  backend:
+    build: ./backend
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - ./backend/.env
+
+    depends_on:
+      - db
+
+    volumes:
+      - ./backend:/app
+
+
+  frontend:
+    build: ./frontend
+
+    ports:
+      - "5173:5173"
+
+    depends_on:
+      - backend
+
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:

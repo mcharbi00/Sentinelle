@@ -4,7 +4,13 @@ import time
 import psutil
 import requests
 
+from dotenv import load_dotenv
 
+
+load_dotenv()
+
+
+INTERVAL = int(os.getenv("AGENT_INTERVAL", 5))
 while True:
 
     hostname = socket.gethostname()
@@ -39,4 +45,4 @@ while True:
 
         print("backend unreachable")
 
-    time.sleep(5)
+    time.sleep(INTERVAL)
